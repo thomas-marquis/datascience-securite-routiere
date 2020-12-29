@@ -3,6 +3,7 @@ import logging
 import pandas as pd
 
 from lib.data.accidents.scrappers import get_urls_by_dataset
+from lib.constant import Datasets
 
 urls_map = get_urls_by_dataset()
 
@@ -21,7 +22,7 @@ read_csv_kwargs_by_year = {
 
 # dtypes
 def dtypes(data_name: str) -> dict:
-    if data_name == 'caracs':
+    if data_name == Datasets.CARACS:
         return {
             'Num_Acc': 'string',
             'jour': 'Int32',
@@ -40,7 +41,7 @@ def dtypes(data_name: str) -> dict:
             'lat': 'string',
             'long': 'string',
         }
-    elif data_name == 'locations':
+    elif data_name == Datasets.LOCATIONS:
         return {
             'Num_Acc': 'string',
             'catr': 'category',
@@ -61,7 +62,7 @@ def dtypes(data_name: str) -> dict:
             'situ': 'category',
             'env1': 'Int32',
         }
-    elif data_name == 'vehicles':
+    elif data_name == Datasets.VEHICLES:
         return {
             'Num_Acc': 'string',
             'id_vehicule': 'string',
@@ -75,7 +76,7 @@ def dtypes(data_name: str) -> dict:
             'motor': 'category',
             'occutc': 'Int32',
         }
-    elif data_name == 'users':
+    elif data_name == Datasets.USERS:
         return {
             'Num_Acc': 'string',
             'id_vehicule': 'string',
@@ -100,6 +101,7 @@ def dtypes(data_name: str) -> dict:
 
 # load datasets
 def get_raw_dataset(data_name: str) -> pd.DataFrame:
+    assert data_name in Datasets.list_all()
     urls_by_year: dict = urls_map[data_name]
 
     df_acc = None
