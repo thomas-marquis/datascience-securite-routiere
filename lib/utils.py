@@ -1,4 +1,5 @@
 import logging
+import os
 
 import pandas as pd
 
@@ -28,15 +29,33 @@ def count_na(df: pd.DataFrame) -> pd.DataFrame:
     """count na per columns in specified DataFrame.
 
     :param pd.DataFrame df:
-    :return: index=df columns, columns=`['na_count', 'na_rate']`
+    :return: index=df columns, columns=`['na_count', 'na_rate', 'filled_count', 'filled_rate']`
     """
 
     nas = []
     for col in df.columns:
         na_count = df[col].isna().sum()
+        filled_count = df.shape[0] - na_count
         na_rate = na_count / df.shape[0]
-        nas.append({'na_count': na_count, 'na_rate': na_rate})
+        filled_rate = 1 - na_rate
+        nas.append({'na_count': na_count,
+                    'na_rate': na_rate,
+                    'filled_count': filled_count,
+                    'filled_rate': filled_rate, })
 
-        logging.info('{}: {:.2f}% NA'.format(col, na_rate * 100))
+        logging.debug('{}: {:.2f}% NA'.format(col, na_rate * 100))
 
-    return pd.DataFrame(nas, index=df.columns)
+    return pd.DataFrame(nas, index=df.columns).sort_values('filled_rate')
+
+
+def is_file_exists_locally(file_path: str) -> bool:
+    """Test local file exists.
+
+    :param str file_path: local relative or absolute file path.
+    :returns: True if file exists
+    """
+
+    if os.path.exists(file_path):
+        logging.info('file {} already exists'.format(file_path))
+        return True
+    return False
