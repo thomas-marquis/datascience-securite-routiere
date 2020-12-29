@@ -42,11 +42,11 @@ def plot_bilan(df: pd.DataFrame):
     return df_to_plot, fig
 
 
-def plot_box_cat(df, cat_col_name, num_col_name) -> None:
+def plot_box_cat(df, cat_col_name, num_col_name, **kwargs) -> None:
     groupes = []
     names = df[cat_col_name].unique()
     for name in names:
         groupes.append(df.loc[df[cat_col_name] == name, num_col_name])
 
-    plt.boxplot(groupes, labels=names, **boxplot_kwargs)
+    plt.boxplot(groupes, labels=names, **boxplot_kwargs, **kwargs)
     plt.show()
