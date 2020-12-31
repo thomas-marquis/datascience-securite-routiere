@@ -2,6 +2,7 @@ import logging
 import os
 
 import pandas as pd
+import yaml
 
 
 def get_dataset(file_path: str, dtypes: dict = None, sep: str = ';', **kwargs) -> pd.DataFrame:
@@ -59,3 +60,15 @@ def is_file_exists_locally(file_path: str) -> bool:
         logging.info('file {} already exists'.format(file_path))
         return True
     return False
+
+
+def get_dtypes(data_name: str, dtypes_file_path: str, base_path: str = '') -> dict:
+    path = '{}{}'.format(base_path, dtypes_file_path)
+
+    with open(path, 'r') as yml_file:
+        types: dict = yaml.load(yml_file, Loader=yaml.Loader).get(data_name, {})
+
+    if types == {}:
+        logging.info('Empty dtypes fond in {}[{}]'.format(path, data_name))
+
+    return types

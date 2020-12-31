@@ -2,8 +2,11 @@ import logging
 
 import pandas as pd
 
+from lib.constant import Datasets
+from lib.features.dtypes import dtypes_clean
 
-def clean_caracs_dataset(raw_caracs: pd.DataFrame) -> pd.DataFrame:
+
+def clean_caracs_dataset(raw_caracs: pd.DataFrame, dtypes_base_path: str = '') -> pd.DataFrame:
     caracs = raw_caracs.copy()
 
     # time
@@ -37,10 +40,10 @@ def clean_caracs_dataset(raw_caracs: pd.DataFrame) -> pd.DataFrame:
     # remove columns
     caracs: pd.DataFrame = caracs.drop(['minute', 'gps', 'hrmn'], axis=1)
 
-    return caracs
+    return caracs.astype(dtypes_clean(Datasets.CARACS, base_path=dtypes_base_path))
 
 
-def clean_locations_dataset(raw_locations: pd.DataFrame) -> pd.DataFrame:
+def clean_locations_dataset(raw_locations: pd.DataFrame, dtypes_base_path: str = '') -> pd.DataFrame:
     locations = raw_locations.copy()
 
     locations = locations.drop(
@@ -68,10 +71,10 @@ def clean_locations_dataset(raw_locations: pd.DataFrame) -> pd.DataFrame:
         .str.replace('(', '').str.replace(')', '') \
         .astype('float32', errors='ignore')
 
-    return locations
+    return locations.astype(dtypes_clean(Datasets.LOCATIONS, base_path=dtypes_base_path))
 
 
-def clean_users_dataset(raw_users: pd.DataFrame) -> pd.DataFrame:
+def clean_users_dataset(raw_users: pd.DataFrame, dtypes_base_path: str = '') -> pd.DataFrame:
     users = raw_users.copy()
 
     users['grav'] = users['grav'].cat.rename_categories({
@@ -106,12 +109,12 @@ def clean_users_dataset(raw_users: pd.DataFrame) -> pd.DataFrame:
     users['actp'] = users['actp'].fillna(-1)
     users = users.drop(['secu', 'id_vehicule', 'secu1', 'secu2', 'secu3'], axis=1)
 
-    return users
+    return users.astype(dtypes_clean(Datasets.USERS, base_path=dtypes_base_path))
 
 
-def clean_vehicles_dataset(raw_vehicles: pd.DataFrame) -> pd.DataFrame:
+def clean_vehicles_dataset(raw_vehicles: pd.DataFrame, dtypes_base_path: str = '') -> pd.DataFrame:
     vehicles = raw_vehicles.copy()
 
     vehicles = vehicles.drop(['id_vehicule', 'motor'], axis=1)
 
-    return vehicles
+    return vehicles.astype(dtypes_clean(Datasets.VEHICLES, base_path=dtypes_base_path))

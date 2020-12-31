@@ -1,0 +1,68 @@
+caracs:
+  Num_Acc: string
+  jour: Int32
+  mois: Int32
+  an: string
+  hrmn: string
+  lum: category
+  dep: category
+  com: string
+  agg: category
+  int: category
+  atm: category
+  col: category
+  gps: category
+  adr: string
+  lat: string
+  long: string
+
+locations:
+  Num_Acc: string
+  catr: category
+  voie: string
+  v1: string
+  v2: string
+  circ: category
+  nbv: Int32
+  vosp: category
+  prof: category
+  pr: string
+  pr1: string
+  plan: category
+  lartpc: string
+  larrout: string
+  surf: category
+  infra: category
+  situ: category
+  env1: Int32
+  
+vehicles:
+  Num_Acc: string
+  id_vehicule: string
+  num_veh: string
+  senc: category
+  catv: category
+  obs: category
+  obsm: category
+  choc: category
+  manv: category
+  motor: category
+  occutc: Int32
+  
+users:
+  Num_Acc: string
+  id_vehicule: string
+  num_veh: string
+  place: category
+  catu: category
+  grav: category
+  sexe: category
+  an_nais: Int32
+  trajet: category
+  secu1: category
+  secu2: category
+  secu3: category
+  locp: category
+  actp: category
+  etatp: category
+  secu: category
