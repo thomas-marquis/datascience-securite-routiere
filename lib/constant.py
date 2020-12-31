@@ -27,3 +27,4 @@ class Datasets(Constant):
 
     # created datasets
     ACCIDENTS = 'accidents'
+    VICTIMS = 'victims'

@@ -114,4 +114,7 @@ def build_victims_dataset(caracs: pd.DataFrame,
     # age
     victims['age'] = victims['year'] - victims['an_nais']
 
-    return victims.astype(dtypes_clean('victims', base_path=dtypes_base_path))
+    dtypes: dict = dtypes_featured(Datasets.VICTIMS, base_path=dtypes_base_path)
+    victims = victims.loc[:, dtypes.keys()]
+
+    return victims.astype(dtypes)
