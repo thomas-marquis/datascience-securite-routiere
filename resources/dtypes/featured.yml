@@ -36,3 +36,17 @@ accidents:
   safe: float32
   victims_nb: float32
   acc_severity: category
+
+victims:
+  Num_Acc: string
+  num_veh: string
+  place: category
+  catu: category
+  grav: category
+  sexe: category
+  an_nais: Int32
+  trajet: category
+  locp: category
+  actp: category
+  etatp: category
+  age: Int32
