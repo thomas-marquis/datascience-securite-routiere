@@ -19,7 +19,11 @@ read_csv_kwargs = {
 
 
 class Datasets(Constant):
+    # base datasets
     CARACS = 'caracs'
     USERS = 'users'
     LOCATIONS = 'locations'
     VEHICLES = 'vehicles'
+
+    # created datasets
+    ACCIDENTS = 'accidents'
