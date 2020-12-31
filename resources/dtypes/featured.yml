@@ -1,17 +1,4 @@
-users:
-  Num_Acc: string
-  num_veh: string
-  place: category
-  catu: category
-  grav: category
-  sexe: category
-  an_nais: Int32
-  trajet: category
-  locp: category
-  actp: category
-  etatp: category
-
-caracs:
+accidents:
   Num_Acc: string
   lum: category
   dep: string
@@ -29,9 +16,6 @@ caracs:
   day: Int32
   hour: Int32
   weekday: Int32
-
-locations:
-  Num_Acc: string
   catr: category
   voie: string
   circ: category
@@ -46,14 +30,9 @@ locations:
   pr: float32
   pr1: float32
   vma: float64
-
-vehicles:
-  Num_Acc: string
-  num_veh: string
-  senc: category
-  catv: category
-  obs: category
-  obsm: category
-  choc: category
-  manv: category
-  occutc: Int32
+  inj_hosp: float32
+  inj_light: float32
+  killed: float32
+  safe: float32
+  victims_nb: float32
+  acc_severity: category
