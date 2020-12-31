@@ -1,11 +1,14 @@
 import logging
 
 import pandas as pd
+import yaml
 
-from lib.data.accidents.scrappers import get_urls_by_dataset
 from lib.constant import Datasets
+from lib.data.accidents.scrappers import get_urls_by_dataset
+from lib import utils
 
 urls_map = get_urls_by_dataset()
+dtypes_file_path = 'resources/dtypes/raw.yml'
 
 read_csv_kwargs_by_year = {
     'default': {
@@ -21,82 +24,10 @@ read_csv_kwargs_by_year = {
 
 
 # dtypes
-def dtypes(data_name: str) -> dict:
-    if data_name == Datasets.CARACS:
-        return {
-            'Num_Acc': 'string',
-            'jour': 'Int32',
-            'mois': 'Int32',
-            'an': 'string',
-            'hrmn': 'string',
-            'lum': 'category',
-            'dep': 'category',
-            'com': 'string',
-            'agg': 'category',
-            'int': 'category',
-            'atm': 'category',
-            'col': 'category',
-            'gps': 'category',
-            'adr': 'string',
-            'lat': 'string',
-            'long': 'string',
-        }
-    elif data_name == Datasets.LOCATIONS:
-        return {
-            'Num_Acc': 'string',
-            'catr': 'category',
-            'voie': 'string',
-            'v1': 'string',
-            'v2': 'string',
-            'circ': 'category',
-            'nbv': 'Int32',
-            'vosp': 'category',
-            'prof': 'category',
-            'pr': 'string',
-            'pr1': 'string',
-            'plan': 'category',
-            'lartpc': 'string',
-            'larrout': 'string',
-            'surf': 'category',
-            'infra': 'category',
-            'situ': 'category',
-            'env1': 'Int32',
-        }
-    elif data_name == Datasets.VEHICLES:
-        return {
-            'Num_Acc': 'string',
-            'id_vehicule': 'string',
-            'num_veh': 'string',
-            'senc': 'category',
-            'catv': 'category',
-            'obs': 'category',
-            'obsm': 'category',
-            'choc': 'category',
-            'manv': 'category',
-            'motor': 'category',
-            'occutc': 'Int32',
-        }
-    elif data_name == Datasets.USERS:
-        return {
-            'Num_Acc': 'string',
-            'id_vehicule': 'string',
-            'num_veh': 'string',
-            'place': 'category',
-            'catu': 'category',
-            'grav': 'category',
-            'sexe': 'category',
-            'an_nais': 'Int32',
-            'trajet': 'category',
-            'secu1': 'category',
-            'secu2': 'category',
-            'secu3': 'category',
-            'locp': 'category',
-            'actp': 'category',
-            'etatp': 'category',
-            'secu': 'category',
-        }
-    else:
-        raise ValueError(data_name)
+def dtypes(data_name: str, base_path: str = '') -> dict:
+    assert data_name in Datasets.list_all()
+
+    return utils.get_dtypes(data_name, dtypes_file_path, base_path=base_path)
 
 
 # load datasets

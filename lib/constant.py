@@ -12,6 +12,11 @@ to_csv_kwargs = {
     'index': False,
 }
 
+read_csv_kwargs = {
+    'sep': ';',
+    'header': 0,
+}
+
 
 class Datasets(Constant):
     CARACS = 'caracs'
