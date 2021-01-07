@@ -64,12 +64,16 @@ def clean_locations_dataset(raw_locations: pd.DataFrame, dtypes_base_path: str =
     locations['lartpc'] = locations['lartpc'] \
         .fillna('0') \
         .astype('float32')
+
     locations['pr'] = locations['pr'] \
         .str.replace('(', '').str.replace(')', '') \
         .astype('float32', errors='ignore')
+    locations['pr'] = pd.to_numeric(locations['pr'], errors='coerce')
+
     locations['pr1'] = locations['pr1'] \
         .str.replace('(', '').str.replace(')', '') \
         .astype('float32', errors='ignore')
+    locations['pr1'] = pd.to_numeric(locations['pr1'], errors='coerce')
 
     return locations.astype(dtypes_clean(Datasets.LOCATIONS, base_path=dtypes_base_path))
 
