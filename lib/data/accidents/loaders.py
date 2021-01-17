@@ -1,7 +1,6 @@
 import logging
 
 import pandas as pd
-import yaml
 
 from lib.constant import Datasets
 from lib.data.accidents.scrappers import get_urls_by_dataset
@@ -31,7 +30,7 @@ def dtypes(data_name: str, base_path: str = '') -> dict:
 
 
 # load datasets
-def get_raw_dataset(data_name: str) -> pd.DataFrame:
+def get_raw_dataset(data_name: str, base_path: str = '') -> pd.DataFrame:
     assert data_name in Datasets.list_all()
     urls_by_year: dict = urls_map[data_name]
 
@@ -46,7 +45,7 @@ def get_raw_dataset(data_name: str) -> pd.DataFrame:
                 read_csv_kwargs = read_csv_kwargs_by_year[kwargs_year]
 
         # get and concat dataframe
-        df: pd.DataFrame = pd.read_csv(url, dtype=dtypes(data_name), **read_csv_kwargs)
+        df: pd.DataFrame = pd.read_csv(url, dtype=dtypes(data_name, base_path=base_path), **read_csv_kwargs)
         logging.info('{} - {} ({}): {} lines'.format(data_name, year, url, df.shape[0]))
         if df_acc is None:
             df_acc = df.copy()
